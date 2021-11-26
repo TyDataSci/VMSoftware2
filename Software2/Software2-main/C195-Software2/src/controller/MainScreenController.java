@@ -175,16 +175,10 @@ public class MainScreenController implements Initializable {
     }
 
     public void onLogOut(ActionEvent actionEvent) throws IOException {
+        Stage window = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
         Scene scene = new Scene(root);
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setTitle("Log In");
-        window.setScene(scene);
-        window.show();
-        Stage window = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource(entryScreen));
-        Scene scene = new Scene(root);
-        window.setTitle(titleOfEntryScreen;
         window.setScene(scene);
         window.show();
 
