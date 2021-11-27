@@ -1,7 +1,6 @@
 package controller;
 
 import dao.*;
-import javafx.fxml.FXML;
 import model.Contact;
 import model.Country;
 import utilities.Local;
@@ -32,6 +31,8 @@ import dao.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -112,14 +113,14 @@ public class MainScreenController implements Initializable {
     public void onSearchButton(ActionEvent mouseEvent) {
     }
 
-
     public void onAddNewEntry(ActionEvent actionEvent) throws IOException {
-        Stage window = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource(entryScreen));
         Scene scene = new Scene(root);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setTitle(titleOfEntryScreen);
         window.setScene(scene);
         window.show();
+
 
     }
 
@@ -129,42 +130,42 @@ public class MainScreenController implements Initializable {
     public void setTabProperties() throws SQLException, IOException {
         nowDatetime.setText(Local.getNowDateTime());
 
-        if (ControllerTabState.getState() == "isDailyTab") {
+        if (Objects.equals(ControllerTabState.getState(), "isDailyTab")) {
             tabNameLabel.setText("Daily Appointments");
             accentLine.setStroke(Paint.valueOf("#8a2be2"));
             addNewEntry.setText("Add Appointment");
             entryScreen = "/view/AppointmentEntryScreen.fxml";
             titleOfEntryScreen = "New Appointment Entry";
         }
-        else if (ControllerTabState.getState() == "isWeeklyTab") {
+        else if (Objects.equals(ControllerTabState.getState(), "isWeeklyTab")) {
             tabNameLabel.setText("Weekly Appointments");
             accentLine.setStroke(Paint.valueOf("#3cb371"));
             addNewEntry.setText("Add Appointment");
             entryScreen = "/view/AppointmentEntryScreen.fxml";
             titleOfEntryScreen = "New Appointment Entry";
         }
-        else if (ControllerTabState.getState() == "isMonthlyTab") {
+        else if (Objects.equals(ControllerTabState.getState(), "isMonthlyTab")) {
             tabNameLabel.setText("Monthly Appointments");
             accentLine.setStroke(Paint.valueOf("#dc143c"));
             addNewEntry.setText("Add Appointment");
             entryScreen = "/view/AppointmentEntryScreen.fxml";
             titleOfEntryScreen = "New Appointment Entry";
         }
-        else if (ControllerTabState.getState() == "isAllTab") {
+        else if (Objects.equals(ControllerTabState.getState(), "isAllTab")) {
             tabNameLabel.setText("All Appointments");
             accentLine.setStroke(Paint.valueOf("CORAL"));
             addNewEntry.setText("Add Appointment");
             entryScreen = "/view/AppointmentEntryScreen.fxml";
             titleOfEntryScreen = "New Appointment Entry";
         }
-        else if (ControllerTabState.getState() == "isCustomersTab"){
+        else if (Objects.equals(ControllerTabState.getState(), "isCustomersTab")){
             tabNameLabel.setText("Customers");
             accentLine.setStroke(Paint.valueOf("#00bfff"));
             addNewEntry.setText("Add Customer");
             entryScreen = "/view/CustomerEntryScreen.fxml";
             titleOfEntryScreen = "New Customer Entry";
         }
-        else if (ControllerTabState.getState() == "isReportsTab"){
+        else if (Objects.equals(ControllerTabState.getState(), "isReportsTab")){
             tabNameLabel.setText("Reports");
             accentLine.setStroke(Paint.valueOf("#ffd400"));
             addNewEntry.setText("Add Appointment");
@@ -175,13 +176,12 @@ public class MainScreenController implements Initializable {
     }
 
     public void onLogOut(ActionEvent actionEvent) throws IOException {
-        Stage window = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
         Scene scene = new Scene(root);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setTitle("Log In");
         window.setScene(scene);
         window.show();
-
     }
 
     public void onDeleteEntry(ActionEvent actionEvent) {
@@ -201,7 +201,7 @@ public class MainScreenController implements Initializable {
         titleOfEntryScreen = "New Appointment Entry";
         //CustomerDAO.getCustomer(1).getCustomerName();
         //col1.setCellValueFactory(new PropertyValueFactory<>("title"));
-       /* for (int i=0; i < AppointmentDAO.getAllAppointments().size(); i++){
+       for (int i=0; i < AppointmentDAO.getAllAppointments().size(); i++){
             System.out.println(AppointmentDAO.getAllAppointments().get(i).getAppointmentId());
             System.out.println(AppointmentDAO.getAllAppointments().get(i).getTitle());
             System.out.println(AppointmentDAO.getAllAppointments().get(i).getDescription());
@@ -216,17 +216,21 @@ public class MainScreenController implements Initializable {
             System.out.println(AppointmentDAO.getAllAppointments().get(i).getCustomerId());
             System.out.println(AppointmentDAO.getAllAppointments().get(i).getUserId());
             System.out.println(AppointmentDAO.getAllAppointments().get(i).getContactId());
-        } */
-
-        //col2.setCellValueFactory(new PropertyValueFactory<>("title"));
-            //col3.setCellValueFactory(new PropertyValueFactory<>("description"));
-            //col4.setCellValueFactory(new PropertyValueFactory<>("location"));
-            //col5.setCellValueFactory(new PropertyValueFactory<>("type"));
-            //col6.setCellValueFactory(new PropertyValueFactory<>("start"));
-            //col7.setCellValueFactory(new PropertyValueFactory<>("end"));
-           // col8.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-            //col9.setCellValueFactory(new PropertyValueFactory<>("userId"));
-            //col10.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        }
+       mainTable.setItems(AppointmentDAO.getAllAppointments());
+        col1.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        col2.setCellValueFactory(new PropertyValueFactory<>("title"));
+        col3.setCellValueFactory(new PropertyValueFactory<>("description"));
+        col4.setCellValueFactory(new PropertyValueFactory<>("location"));
+        col5.setCellValueFactory(new PropertyValueFactory<>("type"));
+        col6.setCellValueFactory(new PropertyValueFactory<>("start"));
+        col7.setCellValueFactory(new PropertyValueFactory<>("end"));
+        col8.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        col9.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        col10.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         localLocation.setText(Local.getLocation());
+        System.out.println(AppointmentDAO.getAllAppointments().get(1).getTitle());
+        System.out.println(AppointmentDAO.getAllAppointments().get(1).getAppointmentId());
+        System.out.println(AppointmentDAO.getAllAppointments().get(1).getStart());
     }
 }

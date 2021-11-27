@@ -14,8 +14,9 @@ public class AppointmentDAO {
     private static final String tableName ="appointments";
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
-    public static ObservableList<Appointment> getAllAppointments() throws SQLException {
+    public static ObservableList<Appointment> getAllAppointments() {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+        try {
             Connection connection = DBConnection.getConnection();
             String fetchStatement = "SELECT * FROM " + tableName;
             DBQuery.setPreparedStatement(connection,fetchStatement);
@@ -39,6 +40,11 @@ public class AppointmentDAO {
                         results.getInt("User_ID"),
                         results.getInt("Contact_ID"));
                 allAppointments.add(appointment);}
+
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
             return allAppointments;
     }

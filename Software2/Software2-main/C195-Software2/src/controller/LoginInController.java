@@ -13,6 +13,7 @@ import utilities.Local;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginInController implements Initializable {
@@ -30,19 +31,19 @@ public class LoginInController implements Initializable {
     public Label localLocation;
 
     public void onSignIn(ActionEvent actionEvent) throws IOException {
-        Stage window = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         Scene scene = new Scene(root);
+        Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         window.setTitle("Appointment Scheduler");
         window.setScene(scene);
         window.show();
     }
 
     public void onLanguageEN(ActionEvent actionEvent) throws IOException {
-        Stage window = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
         Scene scene = new Scene(root);
-        window.setTitle("Log In");
+        Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Appointment Scheduler");
         window.setScene(scene);
         window.show();
     }
@@ -74,6 +75,15 @@ public class LoginInController implements Initializable {
         }
         nowDatetime.setText(Local.getNowDateTime());
         localLocation.setText(Local.getLocation());
+        try {
+            //DBConnection.openConnection();
+            System.out.println(AppointmentDAO.getAllAppointments().get(1).getTitle());
+            System.out.println(AppointmentDAO.getAllAppointments().get(1).getAppointmentId());
+            System.out.println(AppointmentDAO.getAllAppointments().get(1).getStart());
+        }
+        catch (Exception e){
+            System.out.println("caught it");
+        }
 
 
 

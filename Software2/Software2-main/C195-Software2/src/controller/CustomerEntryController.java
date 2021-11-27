@@ -33,34 +33,21 @@ public class CustomerEntryController implements Initializable {
     public Label localLocation;
 
     public void onSave(ActionEvent actionEvent) throws IOException {
-        /*Parent root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
-        Scene scene = new Scene(root);
-        Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setTitle("Appointment Scheduler");
-        window.setScene(scene);
-        window.show();*/
-        Stage window = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         Scene scene = new Scene(root);
+        Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         window.setTitle("Appointment Scheduler");
         window.setScene(scene);
         window.show();
     }
 
     public void onCancel(ActionEvent actionEvent) throws IOException {
-        /*Parent root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         Scene scene = new Scene(root);
         Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         window.setTitle("Appointment Scheduler");
         window.setScene(scene);
-        window.show();*/
-        Stage window = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("view/MainScreen.fxml"));
-        Scene scene = new Scene(root);
-        window.setTitle("Appointment Scheduler");
-        window.setScene(scene);
         window.show();
-
     }
 
     @Override

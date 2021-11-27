@@ -22,7 +22,7 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
 
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreenV11.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
         stage.setTitle("Main Screen");
         stage.setScene(new Scene(root));
         stage.setResizable(false);
@@ -48,7 +48,7 @@ public class Main extends Application{
 
 
 
-        //System.out.println(AppointmentDAO.getAllAppointments().get(1).getAppointmentId());
+        System.out.println(AppointmentDAO.getAllAppointments().get(1).getTitle());
         //System.out.println(Local.getLocation());
         //System.out.println(Local.getTimeZoneId() + "\n");
 
